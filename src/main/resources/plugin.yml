@@ -1,0 +1,10 @@
+name: Radio
+version: '${project.version}'
+main: nl.ashlyn.radio.Radio
+description: Plugin voor de radio functionaliteit op de AshlynSMP server.
+api-version: '1.21'
+author: ntnt
+depend: [ Core, voicechat ]
+commands:
+  broadcast:
+    aliases: [bc]
