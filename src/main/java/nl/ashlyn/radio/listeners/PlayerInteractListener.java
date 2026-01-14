@@ -37,7 +37,7 @@ public class PlayerInteractListener implements Listener {
             Block signBlock = event.getClickedBlock();
             Material type = signBlock.getType();
 
-            if (type == Material.OAK_SIGN || type == Material.OAK_WALL_SIGN) {
+            if (type == Material.BIRCH_SIGN || type == Material.BIRCH_WALL_SIGN) {
 
                 Sign s = (Sign) signBlock.getState();
 
