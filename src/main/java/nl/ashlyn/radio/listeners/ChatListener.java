@@ -25,8 +25,8 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
-        boolean t1 = plugin.getConfig().getBoolean("tower-oost", true);
-        boolean t2 = plugin.getConfig().getBoolean("tower-west", true);
+        boolean t1 = plugin.getConfig().getBoolean("tower-noord", true);
+        boolean t2 = plugin.getConfig().getBoolean("tower-zuid", true);
 
         Player player = event.getPlayer();
         String message = event.getMessage();
