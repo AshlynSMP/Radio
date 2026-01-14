@@ -25,8 +25,8 @@ public class SignChangeListener implements Listener {
         Block b = event.getBlock();
         Player player = event.getPlayer();
 
-        if (b.getType().equals(Material.OAK_SIGN) ||
-                b.getType().equals(Material.OAK_WALL_SIGN)) {
+        if (b.getType().equals(Material.BIRCH_SIGN) ||
+                b.getType().equals(Material.BIRCH_WALL_SIGN)) {
             String l0 = event.getLine(0);
             if (l0.equalsIgnoreCase("[radio]")) {
                 String towerName = event.getLine(1).toLowerCase().trim();
