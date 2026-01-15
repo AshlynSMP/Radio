@@ -37,8 +37,9 @@ public class ChatListener implements Listener {
             return;
         }
 
-        if (!t1 && CoreConfig.isLoreEnabled() || !t2 && CoreConfig.isLoreEnabled()) {
+        if (CoreConfig.isLoreEnabled() && (!t1 || !t2)) {
             event.setMessage(TextScrambler.scrambleLetters(event.getMessage()));
+            message = event.getMessage();
         }
 
         if (CoreConfig.isLoreEnabled()) {
