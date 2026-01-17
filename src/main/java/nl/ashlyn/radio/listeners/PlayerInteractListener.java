@@ -37,12 +37,12 @@ public class PlayerInteractListener implements Listener {
             Block signBlock = event.getClickedBlock();
             Material type = signBlock.getType();
 
-            if (type == Material.BIRCH_SIGN || type == Material.BIRCH_WALL_SIGN) {
+            if (type == Material.PALE_OAK_SIGN || type == Material.PALE_OAK_WALL_SIGN) {
 
                 Sign s = (Sign) signBlock.getState();
 
                 if (s.getLine(0).equals(radioTower)) {
-                    // Block powerBlock = signBlock.getRelative(BlockFace.DOWN, 2);
+                     Block powerBlock = signBlock.getRelative(BlockFace.DOWN, 5);
                     String towerName = ChatColor.stripColor(s.getLine(1)).toLowerCase().trim();
 
                     boolean online = plugin.getConfig().getBoolean("tower-" + towerName, true);
@@ -51,12 +51,12 @@ public class PlayerInteractListener implements Listener {
                     plugin.saveConfig();
 
                     if (online) {
-                        // powerBlock.setType(Material.AIR);
+                        powerBlock.setType(Material.AIR);
                         player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
                         s.setLine(3, ChatColor.GREEN + "Online");
                         player.sendMessage(ChatColor.GREEN + "Radio toren " + towerName + " is nu online.");
                     } else {
-                        // powerBlock.setType(Material.REDSTONE_BLOCK);
+                        powerBlock.setType(Material.REDSTONE_BLOCK);
                         player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.0f, 1.0f);
                         s.setLine(3, ChatColor.RED + "Offline");
                         player.sendMessage(ChatColor.RED + "Radio toren " + towerName + " is nu offline.");
