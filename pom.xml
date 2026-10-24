@@ -6,7 +6,7 @@
 
     <groupId>nl.ashlyn</groupId>
     <artifactId>Radio</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>Radio</name>
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>com.github.AshlynSMP</groupId>
             <artifactId>Core</artifactId>
-            <version>0.0.4</version>
+            <version>1.1.6</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
