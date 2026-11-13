@@ -2,13 +2,17 @@ package nl.ashlyn.radio.voicechat;
 
 import de.maxhenkel.voicechat.api.Group;
 import de.maxhenkel.voicechat.api.VoicechatApi;
+import de.maxhenkel.voicechat.api.VoicechatConnection;
 import de.maxhenkel.voicechat.api.VoicechatPlugin;
 import de.maxhenkel.voicechat.api.VoicechatServerApi;
 import de.maxhenkel.voicechat.api.events.CreateGroupEvent;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
+import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent;
+import nl.ashlyn.core.api.CoreConfig;
 import nl.ashlyn.core.utils.Logger;
 import nl.ashlyn.radio.Radio;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 
@@ -18,6 +22,12 @@ import java.util.Arrays;
 public class VoiceChatPlugin implements VoicechatPlugin {
 
     private static VoicechatServerApi api;
+
+    private final JavaPlugin plugin;
+
+    public VoiceChatPlugin(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     private static final String[] CHANNELS = {
             "5.44 MHz",
@@ -41,6 +51,26 @@ public class VoiceChatPlugin implements VoicechatPlugin {
     public void registerEvents(EventRegistration registration) {
         registration.registerEvent(VoicechatServerStartedEvent.class, this::onServerStarted, 100);
         registration.registerEvent(CreateGroupEvent.class, this::onGroupCreated, 100);
+        registration.registerEvent(MicrophonePacketEvent.class, this::onMicrophonePacket, 100);
+    }
+
+    /**
+     * With both radio towers offline nobody can talk on a radio channel,
+     * the same way text chat is blocked in ChatListener.
+     */
+    public void onMicrophonePacket(MicrophonePacketEvent event) {
+        VoicechatConnection sender = event.getSenderConnection();
+        if (sender == null) return;
+
+        Group group = sender.getGroup();
+        if (group == null || !Arrays.asList(CHANNELS).contains(group.getName())) return;
+
+        boolean t1 = plugin.getConfig().getBoolean("tower-noord", true);
+        boolean t2 = plugin.getConfig().getBoolean("tower-zuid", true);
+
+        if (!t1 && !t2 && CoreConfig.isLoreEnabled()) {
+            event.cancel();
+        }
     }
 
     public void onServerStarted(VoicechatServerStartedEvent event) {

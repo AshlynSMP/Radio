@@ -30,7 +30,7 @@ public final class Radio extends JavaPlugin {
 
         BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
         if (service != null) {
-            VoiceChatPlugin voicechatPlugin = new VoiceChatPlugin();
+            VoiceChatPlugin voicechatPlugin = new VoiceChatPlugin(this);
             service.registerPlugin(voicechatPlugin);
             Logger.logRadio("Successfully registered radio in voicechat");
         }
